@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>沙果教育</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/articledetail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'jquery/js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+</head>
+<body>
+
+<div class="container logo-search">
+  <div class="row">
+    <div class="col logo">
+      <div class="header">
+        <div>
+          <h1><a href=""><img src="/static/img/2.png" alt=""> 沙果教育     </a><small>职业教育先锋军<small>--技术驱动梦想升级</small></small></h1>
+          <span><a href="/admin" class="toadmin pull-right">管理</a></span>
+        </div>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="天分高的人如果懒惰成性,亦即不自努力以发展他的才能,则其成就也不会很大,有时反会不如天分比他低些的人" aria-describedby="basic-addon2">
+          <span class="input-group-addon" id="basic-addon2">茅盾</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container navigation">
+	<div class="row">
+		<div class="col nav">
+			<ul class="pc-nav">
+				<li><a href="/">首页</a></li>
+                <li><a href="/python3/python3-tutorial">Python3</a></li>
+                <li><a href="/bootstrap/bootstrap-tutorial">Bootstrap</a></li>
+                <li><a href="/mysql/mysql-tutorial">Mysql</a></li>
+                <li><a href="/sql/sql-tutorial">SQL</a></li>
+				<li><a href="/scrapy/scrapy-tutorial">Scrapy</a></li>
+				<li><a href="/redis/redis-tutorial">Redis</a></li>
+				<li><a href="/pandas/pandas-tutorial">Padas</a></li>
+				<li><a href="/numpy/numpy-tutorial">Numpy</a></li>
+                <li><a href="/django/django-tutorial">Django</a></li>
+                <li><a href="/pyqt5/pyqt5-tutorial">Pyqt5</a></li>
+                <li><a href="/codes/codes-tutorial">案例</a></li>
+				<li><a href="/article/article-tutorial">文章</a></li>
+                <li><a href="/book/book-tutorial">书籍</a></li>
+				<li><a href="/error/error-tutorial">常见错误</a></li>
+				<li><a href="/helpdocument/helpdocument-tutorial">文档</a></li>
+      		</ul>
+
+		</div>
+	</div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col left-column">
+            <div class="row">
+                <div class="left-panel panel-danger" style="width: 28%;">
+                    <div class="panel-heading text-center" >内容列表</div>
+                    <div class="panel-body">
+                        {% block title_list %}
+
+                        {% endblock %}
+                    </div>
+                </div>
+                <div class="left-panel panel-success" style="width: 28%;">
+                    <div class="panel-heading text-center" >相关知识</div>
+                    <div class="panel-body">
+                        {% block related_list %}
+
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col middle-column">
+            <div class="content_position">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

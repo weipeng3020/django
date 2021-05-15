@@ -1,0 +1,50 @@
+.navigation {
+    background: #215755;
+}
+
+.row {
+    width: 100%;
+    max-width: 1260px;
+    min-width: 755px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.nav li {
+    display: inline;
+    margin: 0 20px 0 0;
+    line-height: 1.5em;
+}
+
+.nav li a {
+    color: #fff;
+    font-size: 15px;
+    padding: 10px 0 10px 0;
+    text-decoration: none;
+}
+/*下面用来调整每个列的宽度*/
+.left-column {
+    width: 18%;
+    display: block;
+}
+
+.middle-column {
+    width: 78%;
+}
+
+.col {
+    margin-right: 1%;
+    float: left;
+    margin-top: 15px;
+}
+
+.input-group{
+    margin-bottom: 15px;
+}
+
+.toadmin{
+    margin-top: -30px;
+    color: red;
+    font-size: 15px;
+}
+

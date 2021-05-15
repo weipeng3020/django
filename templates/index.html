@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title_list %}
+
+    <div class="title_list">
+        {% for article in article_list %}
+            <div class="article-item clearfix">
+                <h5><a href="/{{ article.programming_tools }}/{{ article.english_title }}">{{ article.title }}</a></h5>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+
+{% block related_list %}
+    <div class="related_list">
+        {% for article in article_web_intro %}
+            <div class="article-item clearfix">
+                <h5 style="margin-left: 10px"><a href="/{{ article.programming_tools }}/{{ article.english_title }}">{{ article.title }}</a></h5>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+{% block content %}
+
+    {% csrf_token %}
+    <h1 class="text-center">{{ article_list.first.title }}</h1>
+    <div class="cont">
+        {{ article_list.first.content|safe }}
+    </div>
+
+{% endblock %}

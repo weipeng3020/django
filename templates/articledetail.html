@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title_list %}
+    <div class="title_list">
+        {% for article in article_list %}
+            <div class="article-item clearfix">
+                <h5 style="margin-left: 10px"><a href="/{{ article.programming_tools }}/{{ article.english_title }}">{{ article.title }}</a></h5>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+{% block related_list %}
+    <div class="related_list">
+        {% for article in article_list_related %}
+            <div class="article-item clearfix">
+                <h5 style="margin-left: 10px"><a href="/{{ article.programming_tools }}/{{ article.english_title }}">{{ article.title }}</a></h5>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+{% block content %}
+
+    {% csrf_token %}
+    <h1 class="text-center">{{ article_title }}</h1>
+    <div class="cont">
+        {{ article_content|safe }}
+    </div>
+    <div class="progress">
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        <span class="sr-only">100% Complete (success)</span>
+      </div>
+    </div>
+    <div class="comments list-group position-absolute">
+        <p>笔记列表</p>
+        <ul class="list-group comment_list">
+            {% for comment in comment_list %}
+                <li class="list-group-item">
+                    <div>
+                        <a href=""># {{ forloop.counter }}楼</a> &nbsp;&nbsp;
+                        <a href=""><span>{{ comment.username }}</span></a> &nbsp;&nbsp;
+                        <span>{{ comment.create_time|date:"Y-m-d H:i" }}</span> &nbsp;&nbsp;
+                        <a class="pull-right reply_btn" username="{{ comment.username }}">回复</a>
+                    </div>
+                    <div class="comment_con">
+                        <p>{{ comment.content|safe }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <p>发表笔记</p>
+        <p>昵称：<input type="text" id="tbCommentAuthor" class="author" placeholder="输入炫酷的昵称--必填！" size="52"></p>
+        <p>笔记内容：</p>
+        <form>
+            <textarea style="resize:none;width: 600px;height: 200px" name="comment_content_name" id="comment_content"></textarea>
+
+{#            下面的表单功能 打开就能用 就是不兼容的地方太多 以后再调整吧#}
+{#            <script>#}
+{#		        CKEDITOR.replace( 'comment_content_name' , {uiColor: '#9AB8F3',toolbar: [ 'undo', 'redo' ]});#}
+{#		    </script>#}
+
+        </form>
+        <p>
+            <button class="btn btn-default comment_btn">提交</button>
+        </p>
+    </div>
+    <script>
+        // 评论提交
+        $(".comment_btn").click(function () {
+            var content=$("#comment_content").val();
+            var username=$("#tbCommentAuthor").val();
+            if(username==""||username==null||username==undefined){
+                username="游客"
+            }
+            $.ajax({
+                url: "/comment/",
+                type: "post",
+                data: {
+                    "csrfmiddlewaretoken": $("[name='csrfmiddlewaretoken']").val(),
+                    "article_id": "{{ article_id }}",
+                    "content":content,
+                    "username":username
+                },
+                success: function (data) {
+                    console.log(data);
+                    var create_time=data.create_time;
+                    var username=data.username;
+                    var content=data.content;
+                    content = content.replace("script","^-^")
+
+                    var s=`
+                        <li class="list-group-item">
+                            <div>
+                                <a href=""><span>${username}</span></a> &nbsp;&nbsp;
+                                <span>${create_time}</span>
+                            </div>
+                            <div class="comment_con">
+                                <p>${content}</p>
+                            </div>
+                        </li>`;
+                    $("ul.comment_list").append(s);
+                    //清空评论框
+                    $("#comment_content").val("")
+                }
+            })
+        });
+        // 回复按钮事件
+        $(".reply_btn").click(function (){
+            $('#comment_content').focus();
+            var val="@"+$(this).attr("username")+"\n";
+            $('#comment_content').val(val);
+        })
+
+    </script>
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        <span class="sr-only">100% Complete</span>
+      </div>
+    </div>
+
+{% endblock %}
